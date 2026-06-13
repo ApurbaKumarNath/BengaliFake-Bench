@@ -204,13 +204,6 @@ We computed the exact text-identical overlap between BanFakeNews-2.0 (v2) and th
 - **Artifact**: [`analysis/label_conflict_check.json`](analysis/label_conflict_check.json)
 - **Conclusion**: This is not a data quality error. It is a systematic annotation disagreement. The two corpora operationalize "fake news" differently.
 
-#### 2.4. Preliminary Fake-vs-Fake Classifier (Notebook 2)
-As a preliminary test of lexical distinguishability, Notebook 2 (Cell 4) trained a LinearSVC classifier to distinguish Pop A from Pop D using a split stratified by class label but not by population source, with `max_features=30000`. This classifier achieved Macro-F1 = **0.6572**. The top discriminating terms revealed that QPAIN fake articles contain **English category labels** (e.g., `National`, `International`, `Education`) embedded in the text, while BanFakeNews-2.0 fake articles contain only Bangla script. This finding indicates **metadata leakage** from QPAIN's collection pipeline.
-
-Notebook 5 (Cell 2) presents the **authoritative** fake-vs-fake classifier with two methodological refinements: (1) stratified splitting **within each population** to prevent cross-contamination, and (2) `max_features` reduced to 20,000 to control dimensionality given the smaller effective training set. This classifier achieves Macro-F1 = **0.6132**. The lower score reflects both the more conservative evaluation protocol and the reduced feature space. The top discriminating terms in NB5 reveal **Bangla fragment artifacts** (e.g., `মতিকণ্ঠ`, `র্থী`, `র্থীদের`) rather than English labels, suggesting that after proper stratification, the classifier learns subtler lexical distinctions.
-
-Together, these classifiers demonstrate that the two fake populations are lexically distinguishable but identify **different artifact types**: NB2 reveals English metadata leakage, while NB5 reveals Bangla scraping artifacts. Both findings support the thesis that the corpora were built with different collection pipelines.
-
 #### 3. Isolation of the 4 Core Populations
 To enable clean, leakage-free characterization, the notebook isolates four mutually exclusive populations and saves them as CSVs in the `populations/` directory:
 | Population | Description | Count | File |
@@ -246,14 +239,20 @@ We computed the Jaccard similarity (Intersection / Union) of the cleaned, stopwo
 - **Finding**: The two fake populations share *twice as much* vocabulary with each other as they do with their respective real news counterparts. This proves that despite different annotation guidelines, both corpora draw from a distinct lexical pool of fabricated content.
 - **Artifact**: [`analysis/jaccard_similarity.json`](analysis/jaccard_similarity.json)
 
-#### 3. Fake-vs-Fake LinearSVC Classifier
-To quantify the lexical distinction between Pop A (v2 Fake) and Pop D (QPAIN Fake), we trained a `LinearSVC` classifier to distinguish between them.
-- **Setup**: Stratified 80/20 split, `class_weight='balanced'`, custom Bangla tokenizer, `max_features=20000`.
-- **Result**: Macro-F1 = **0.6132**. While not perfect, this score is significantly above random chance, proving the two fake populations are lexically distinguishable.
-- **Coefficient Analysis**: Extracting the top discriminating terms reveals *why* they are distinguishable. 
-  - *Pop A (v2 Fake) top terms*: `জাতীয়` (national), `আন্তর্জাতিক` (international), `শিক্ষা` (education). These are Bangla news category labels embedded in the text.
-  - *Pop D (QPAIN Fake) top terms*: `মতিকণ্ঠ`, `তাবাদী`, `র্থী`, `র্থীদের`, `দৈনিক` (scraping artifacts and outlet names). These are scraping artifacts from QPAIN's collection pipeline.
-- **Conclusion**: The classifier does not learn "fake news signals"; it learns **source-specific collection artifacts**. This explains why cross-source generalization fails: the models are memorizing dataset-specific metadata leakage, not universal linguistic patterns of fabrication.
+#### 2.4. Preliminary Fake-vs-Fake Classifier (Notebook 2)
+As a preliminary test of lexical distinguishability, Notebook 2 (Cell 4) trained a LinearSVC classifier to distinguish Pop A from Pop D using a split stratified by class label but not by population source, with `max_features=30000`. This classifier achieved Macro-F1 = **0.6572**. The top discriminating terms revealed that QPAIN fake articles contain **English category labels** (e.g., `National`, `International`, `Education`) embedded in the text, while BanFakeNews-2.0 fake articles contain only Bangla script. This finding indicates **metadata leakage** from QPAIN's collection pipeline.
+
+Notebook 5 (Cell 2) presents the **authoritative** fake-vs-fake classifier with two methodological refinements: (1) stratified splitting **within each population** to prevent cross-contamination, and (2) `max_features` reduced to 20,000 to control dimensionality given the smaller effective training set. This classifier achieves Macro-F1 = **0.6132**. The lower score reflects both the more conservative evaluation protocol and the reduced feature space. The top discriminating terms in NB5 reveal **Bangla fragment artifacts** (e.g., `মতিকণ্ঠ`, `র্থী`, `র্থীদের`) rather than English labels, suggesting that after proper stratification, the classifier learns subtler lexical distinctions.
+
+Together, these classifiers demonstrate that the two fake populations are lexically distinguishable but identify **different artifact types**: NB2 reveals English metadata leakage, while NB5 reveals Bangla scraping artifacts. Both findings support the thesis that the corpora were built with different collection pipelines.
+
+#### 3. Authoritative Fake-vs-Fake LinearSVC Classifier (Notebook 5, Cell 2)
+To obtain a methodologically defensible measure of lexical distinguishability, Notebook 5 replicates and refines the preliminary classifier from Notebook 2 (Section 2.4). Two key improvements are introduced: (1) stratified splitting **within each population** to prevent cross-contamination, and (2) `max_features` reduced to 20,000 to control dimensionality given the smaller effective training set after within-population stratification.
+
+- **Setup**: Stratified 80/20 split **within each population**, `class_weight='balanced'`, custom Bangla tokenizer, `max_features=20000`.
+- **Result**: Macro-F1 = **0.6132**. This lower score (vs. NB2's 0.6572) reflects the more conservative evaluation protocol and reduced feature space. The score remains significantly above random chance, confirming that the two fake populations are lexically distinguishable.
+- **Coefficient Analysis**: NB5's top discriminating terms reveal **Bangla fragment artifacts** (`মতিকণ্ঠ`, `র্থী`, `র্থীদের`, `দৈনিক`) rather than the English category labels found in NB2. This suggests that after proper stratification, the classifier learns subtler lexical distinctions rather than relying on overt metadata leakage. Together, NB2's English labels and NB5's Bangla fragments reveal **multiple layers of source-specific collection artifacts**.
+- **Conclusion**: The classifier learns source-specific artifacts, not universal fake news signals. This explains why **naive** cross-source generalization fails (models memorize dataset-specific metadata). However, as demonstrated in Phase 3, careful multi-source training can recover performance by learning broader, cross-corpus patterns of fabrication.
 - **Artifacts**: [`analysis/fake_vs_fake_classifier.json`](analysis/fake_vs_fake_classifier.json), [`figures/figure_fake_vs_fake_terms.png`](figures/figure_fake_vs_fake_terms.png)
 
 ---
