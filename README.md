@@ -13,7 +13,7 @@ Through systematic, code-verified analysis, this repository establishes the foll
 1. **Massive Overlap:** 8,751 articles are text-identical across both datasets after SHA-1 deduplication.
 2. **Systematic Label Conflict:** Of the overlapping articles, **1,101 exhibit direct label disagreement** (labeled `Real` in BanFakeNews-2.0, but `Fake` in QPAIN).
 3. **Lexical & Topical Divergence:** A Fake-vs-Fake LinearSVC classifier achieves a Macro-F1 of `0.6132`, proving the two fake populations are lexically distinguishable. Jaccard similarity between their unigram vocabularies is `0.4784`. LDA topic modeling reveals BanFakeNews-2.0 fake news spans 15 optimal topics, while QPAIN fake news concentrates into 5.
-4. **Augmentation Recovery:** A clean cross-corpus augmentation experiment demonstrates that training a model on a merged dataset recovers `0.0781` Macro-F1 (or `0.1563` Fake‑F1) on held-out QPAIN test data compared to single-source training, proving the regimes are complementary.
+4. **Augmentation Recovery:** A clean cross-corpus augmentation experiment demonstrates that training a model on a merged dataset improves performance over the strongest single-source baseline. Using `Model_A_only` (trained entirely on BanFakeNews-2.0 Real + Fake), the combined model improves Macro-F1 on the QPAIN test set from 0.4228 to 0.4485 (**+0.0257**) and Fake-F1 from 0.8455 to 0.8970 (**+0.0515**). On the v2 test set, the combined model improves Macro-F1 from 0.4498 to 0.4768 (**+0.0270**) and Fake-F1 from 0.8997 to 0.9537 (**+0.0540**). Notably, the v2-only baseline outperforms the mixed-source `Model_D_only` (0.4228 vs. 0.3704 Macro-F1 on QPAIN test), suggesting that v2's larger and more diverse fake news collection (n=7,675 vs. n=2,720) produces a more transferable detector, though sample size imbalance may contribute. Using the weaker `Model_D_only` as a baseline would give an apparently larger gain of +0.0781 Macro-F1, but this comparison is methodologically flawed because `Model_D_only` mixes v2 Real with QPAIN Fake and is not a coherent single-source model. The consistent improvement from multi-source training provides evidence that the two regimes are complementary rather than contradictory.
 
 This repository contains the exact code, isolated population splits, statistical test outputs, and 300-DPI figures required to independently verify every claim.
 
@@ -38,15 +38,33 @@ BengaliFake-Bench/
 │   ├── pop_C_conflict_realv2_fakeHF.csv # Pop C: 1,101 text-identical conflicts
 │   └── pop_D_hf_fake_nonconflict.csv    # Pop D: QPAIN Fake, non-overlapping (n=3,400)
 │
-├── analysis/                                 # JSON/CSV outputs of all statistical tests and metrics
-│   ├── v1_overlap_check.json                 # Empirical proof of BanFakeNews v1 subsumption by v2.0
-│   ├── label_conflict_check.json             # Deep dive into the 1,101 annotation conflicts
-│   ├── vocab_stats.json                      # Vocabulary size, TTR, and length statistics
-│   ├── jaccard_similarity.json               # Unigram/bigram Jaccard overlap matrices
+├── analysis/                           # JSON/CSV outputs of all statistical tests and metrics
+│   ├── v1_overlap_check.json           # Empirical proof of BanFakeNews v1 subsumption by v2.0
+│   ├── v2_hf_overlap_check.json        # 8,751 overlap count and agreement/conflict breakdown
+│   ├── label_conflict_check.json       # Basic conflict counts and direction (1,101 conflicts)
+│   ├── conflict_characterization.json  # Deep dive: content length, samples, category dist
+│   ├── population_stats.json           # Mathematical verification: Pop A+B+C = v2 total
+│   ├── vocab_stats.json                # Vocabulary size, TTR, and length statistics
+│   ├── jaccard_similarity.json         # Unigram/bigram Jaccard overlap matrices
+│   ├── tokenizer_validation_log.txt    # Proof that custom Bangla tokenizer works correctly
+│   ├── fake_vs_fake_classifier.json    # Top discriminating coefficients and Macro-F1 (NB5)
+│   ├── stylometric_feature_extraction.py # The exact Python function for the 14 features
+│   ├── stylometric_pop_A.npy           # NumPy array of 14 features for Pop A
+│   ├── stylometric_pop_B.npy           # NumPy array of 14 features for Pop B
+│   ├── stylometric_pop_C.npy           # NumPy array of 14 features for Pop C
+│   ├── stylometric_pop_D.npy           # NumPy array of 14 features for Pop D
+│   ├── stylometric_summary_stats.json  # Mean/std/median/min/max for all 14 features
 │   ├── stylometric_mann_whitney_results.json # P-values and rank-biserial effect sizes
-│   ├── lda_topics.json                       # Topic-word distributions and coherence scores
-│   ├── fake_vs_fake_classifier.json          # Top discriminating coefficients and Macro-F1
-│   └── augmentation_experiment.json          # Clean cross-corpus training recovery metrics
+│   ├── lda_coherence_results.json      # Cv scores for k ∈ [5, 8, 10, 12, 15, 20]
+│   ├── lda_dict_A.dict                 # Gensim dictionary for Pop A LDA model
+│   ├── lda_dict_D.dict                 # Gensim dictionary for Pop D LDA model
+│   ├── lda_corpus_A.mm                 # Gensim BoW corpus for Pop A
+│   ├── lda_corpus_D.mm                 # Gensim BoW corpus for Pop D
+│   ├── lda_preprocessed_corpora.json   # Preprocessed token lists for LDA reproduction
+│   ├── lda_topics.json                 # Topic-word distributions and coherence scores
+│   ├── lda_topic_distributions.json  # Topic prevalence percentages per corpus
+│   ├── nb5_preprocessing_validation.json # Proves artifact splitting works on test cases
+│   └── augmentation_experiment.json    # Clean cross-corpus training recovery metrics
 │
 ├── figures/                               # 300 DPI publication-ready figures
 │   ├── figure2_length_cdf.png             # Article length cumulative distribution functions
@@ -239,14 +257,20 @@ We computed the Jaccard similarity (Intersection / Union) of the cleaned, stopwo
 - **Finding**: The two fake populations share *twice as much* vocabulary with each other as they do with their respective real news counterparts. This proves that despite different annotation guidelines, both corpora draw from a distinct lexical pool of fabricated content.
 - **Artifact**: [`analysis/jaccard_similarity.json`](analysis/jaccard_similarity.json)
 
-#### 3. Fake-vs-Fake LinearSVC Classifier
-To quantify the lexical distinction between Pop A (v2 Fake) and Pop D (QPAIN Fake), we trained a `LinearSVC` classifier to distinguish between them.
-- **Setup**: Stratified 80/20 split, `class_weight='balanced'`, custom Bangla tokenizer, `max_features=20000`.
-- **Result**: Macro-F1 = **0.6132**. While not perfect, this score is significantly above random chance, proving the two fake populations are lexically distinguishable.
-- **Coefficient Analysis**: Extracting the top discriminating terms reveals *why* they are distinguishable. 
-  - *Pop A (v2 Fake) top terms*: `জাতীয়` (national), `আন্তর্জাতিক` (international), `শিক্ষা` (education). These are Bangla news category labels embedded in the text.
-  - *Pop D (QPAIN Fake) top terms*: `মতিকণ্ঠ`, `তাবাদী`, `র্থী`, `র্থীদের`, `দৈনিক` (scraping artifacts and outlet names). These are scraping artifacts from QPAIN's collection pipeline.
-- **Conclusion**: The classifier does not learn "fake news signals"; it learns **source-specific collection artifacts**. This explains why cross-source generalization fails: the models are memorizing dataset-specific metadata leakage, not universal linguistic patterns of fabrication.
+#### 2.4. Preliminary Fake-vs-Fake Classifier (Notebook 2)
+As a preliminary test of lexical distinguishability, Notebook 2 (Cell 4) trained a LinearSVC classifier to distinguish Pop A from Pop D using a split stratified by class label but not by population source, with `max_features=30000`. This classifier achieved Macro-F1 = **0.6572**. The top discriminating terms revealed that QPAIN fake articles contain **English category labels** (e.g., `National`, `International`, `Education`) embedded in the text, while BanFakeNews-2.0 fake articles contain only Bangla script. This finding indicates **metadata leakage** from QPAIN's collection pipeline.
+
+Notebook 5 (Cell 2) presents the **authoritative** fake-vs-fake classifier with two methodological refinements: (1) stratified splitting **within each population** to prevent cross-contamination, and (2) `max_features` reduced to 20,000 to control dimensionality given the smaller effective training set. This classifier achieves Macro-F1 = **0.6132**. The lower score reflects both the more conservative evaluation protocol and the reduced feature space. The top discriminating terms in NB5 reveal **Bangla fragment artifacts** (e.g., `মতিকণ্ঠ`, `র্থী`, `র্থীদের`) rather than English labels, suggesting that after proper stratification, the classifier learns subtler lexical distinctions.
+
+Together, these classifiers demonstrate that the two fake populations are lexically distinguishable but identify **different artifact types**: NB2 reveals English metadata leakage, while NB5 reveals Bangla scraping artifacts. Both findings support the thesis that the corpora were built with different collection pipelines.
+
+#### 3. Authoritative Fake-vs-Fake LinearSVC Classifier (Notebook 5, Cell 2)
+To obtain a methodologically defensible measure of lexical distinguishability, Notebook 5 replicates and refines the preliminary classifier from Notebook 2 (Section 2.4). Two key improvements are introduced: (1) stratified splitting **within each population** to prevent cross-contamination, and (2) `max_features` reduced to 20,000 to control dimensionality given the smaller effective training set after within-population stratification.
+
+- **Setup**: Stratified 80/20 split **within each population**, `class_weight='balanced'`, custom Bangla tokenizer, `max_features=20000`.
+- **Result**: Macro-F1 = **0.6132**. This lower score (vs. NB2's 0.6572) reflects the more conservative evaluation protocol and reduced feature space. The score remains significantly above random chance, confirming that the two fake populations are lexically distinguishable.
+- **Coefficient Analysis**: NB5's top discriminating terms reveal **Bangla fragment artifacts** (`মতিকণ্ঠ`, `র্থী`, `র্থীদের`, `দৈনিক`) rather than the English category labels found in NB2. This suggests that after proper stratification, the classifier learns subtler lexical distinctions rather than relying on overt metadata leakage. Together, NB2's English labels and NB5's Bangla fragments reveal **multiple layers of source-specific collection artifacts**.
+- **Conclusion**: The classifier learns source-specific artifacts, not universal fake news signals. This explains why **naive** cross-source generalization fails (models memorize dataset-specific metadata). However, as demonstrated in Phase 3, careful multi-source training can recover performance by learning broader, cross-corpus patterns of fabrication.
 - **Artifacts**: [`analysis/fake_vs_fake_classifier.json`](analysis/fake_vs_fake_classifier.json), [`figures/figure_fake_vs_fake_terms.png`](figures/figure_fake_vs_fake_terms.png)
 
 ---
@@ -390,9 +414,7 @@ The results of this experiment are saved in [`analysis/augmentation_experiment.j
    - *Gain:* **+15.6 points**. QPAIN's fake articles are topically concentrated (as proven in Notebook 4). Adding the diverse fake articles from BanFakeNews-2.0 provides crucial regularization, preventing the model from overfitting to QPAIN's narrow topical distribution.
 
 #### 4. Lexical Distinction vs. Complementary Learning
-This result resolves the apparent paradox between Notebook 2 and Notebook 5:
-- **Notebook 2 proved** that a LinearSVC can distinguish Pop A from Pop D (Macro-F1 = 0.6132), meaning they use different lexical signals (e.g., source-specific artifacts, different sensationalist vocabulary).
-- **Notebook 5 proves** that despite these differences, training on *both* yields a superior model. 
+*"This result connects the lexical distinction findings from Notebooks 2 and 5. Notebook 2's preliminary classifier (Macro-F1 = 0.6572) identified English metadata leakage as a distinguishing signal, while Notebook 5's refined classifier (Macro-F1 = 0.6132) identified Bangla fragment artifacts. Despite these different artifact patterns, training on both corpora provides evidence that the regimes are complementary: the combined model improves over the strongest single-source baseline on both test sets."*
 
 This confirms the core thesis: **The two corpora represent distinct misinformation regimes, but these regimes are complementary.** A model exposed to both learns a broader, more generalized decision boundary for "fakeness" that transcends the idiosyncratic annotation guidelines or collection artifacts of any single corpus.
 
