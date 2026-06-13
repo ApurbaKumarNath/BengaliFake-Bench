@@ -418,7 +418,7 @@ Characterization is not classification. Our goal is not to maximize F1 — it is
 - Human-interpretable LDA topics with top-10 word lists (Table IV)
 - Scalar stylometric features with statistical significance tests (Table II)
 
-Traditional ML with TF-IDF features is *epistemologically necessary* for this work because it forces the model to operate on the same linguistic units a human reader would recognize. A BERT attention map cannot tell you that QPAIN's fake articles are dominated by the category label "Education" leaking into the text — our Fake-vs-Fake LinearSVC's coefficients *do* tell you that (see `analysis/fake_vs_fake_classifier.json`, top QPAIN terms: `মতিকণ্ঠ`, `র্থী`, `দৈনিক`).
+Traditional ML with TF-IDF features is *epistemologically necessary* for this work because it forces the model to operate on the same linguistic units a human reader would recognize. A BERT attention map cannot tell you that QPAIN's fake articles are dominated by the category label "Education" leaking into the text — our Fake-vs-Fake LinearSVC's coefficients *do* tell you that (see `analysis/fake_vs_fake_classifier.json`, top QPAIN terms: `মতিকণ্ঠ`, `তাবাদী`, `র্থী`, `র্থীদের`, `দৈনিক`).
 
 **Proof in Code:** `#### Notebook 5, Code Cell 2` — the coefficient extraction that produces the interpretable term lists.
 
