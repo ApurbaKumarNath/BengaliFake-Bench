@@ -12,8 +12,8 @@ This repository provides a fully reproducible, end-to-end characterization of tw
 Through systematic, code-verified analysis, this repository establishes the following empirical facts:
 1. **Massive Overlap:** 8,751 articles are text-identical across both datasets after SHA-1 deduplication.
 2. **Systematic Label Conflict:** Of the overlapping articles, **1,101 exhibit direct label disagreement** (labeled `Real` in BanFakeNews-2.0, but `Fake` in QPAIN).
-3. **Lexical & Topical Divergence:** A Fake-vs-Fake LinearSVC classifier achieves a Macro-F1 of `0.6132`, proving the two fake populations are lexically distinguishable. Jaccard similarity between their unigram vocabularies is `0.4146`. LDA topic modeling reveals BanFakeNews-2.0 fake news spans 15 optimal topics, while QPAIN fake news concentrates into 5.
-4. **Augmentation Recovery:** A clean cross-corpus augmentation experiment demonstrates that training a model on a merged dataset recovers `0.1268` Macro-F1 on held-out QPAIN test data compared to single-source training, proving the regimes are complementary.
+3. **Lexical & Topical Divergence:** A Fake-vs-Fake LinearSVC classifier achieves a Macro-F1 of `0.6132`, proving the two fake populations are lexically distinguishable. Jaccard similarity between their unigram vocabularies is `0.4784`. LDA topic modeling reveals BanFakeNews-2.0 fake news spans 15 optimal topics, while QPAIN fake news concentrates into 5.
+4. **Augmentation Recovery:** A clean cross-corpus augmentation experiment demonstrates that training a model on a merged dataset recovers `0.0781` Macro-F1 (or `0.1563` Fake‑F1) on held-out QPAIN test data compared to single-source training, proving the regimes are complementary.
 
 This repository contains the exact code, isolated population splits, statistical test outputs, and 300-DPI figures required to independently verify every claim.
 
@@ -234,7 +234,7 @@ Standard NLP pipelines in Python fail catastrophically on Indic scripts.
 
 #### 2. Vocabulary Overlap (Jaccard Similarity)
 We computed the Jaccard similarity (Intersection / Union) of the cleaned, stopword-removed vocabularies.
-- **Fake vs. Fake (Pop A vs. Pop D)**: Jaccard = **0.4146**. This indicates a moderate, shared "misinformation lexicon" between the two corpora.
+- **Fake vs. Fake (Pop A vs. Pop D)**: Jaccard = **0.4784**. This indicates a moderate, shared "misinformation lexicon" between the two corpora.
 - **Fake vs. Real (Pop A vs. Pop B)**: Jaccard = **0.1956**. 
 - **Finding**: The two fake populations share *twice as much* vocabulary with each other as they do with their respective real news counterparts. This proves that despite different annotation guidelines, both corpora draw from a distinct lexical pool of fabricated content.
 - **Artifact**: [`analysis/jaccard_similarity.json`](analysis/jaccard_similarity.json)
@@ -454,7 +454,7 @@ This is not noise. It is a **systematic, directional annotation disagreement** t
 - **Top v2 Fake terms:** `জাতীয়` (national), `আন্তর্জাতিক` (international), `শিক্ষা` (education), `রাজনীতি` (politics) — these are Bangla news category labels embedded in the articles.
 - **Top QPAIN Fake terms:** `মতিকণ্ঠ`, `র্থী`, `র্থীদের`, `দৈনিক` — these are scraping artifacts from QPAIN's collection pipeline (fragments of English category labels like "Education" glued to Bangla words).
 
-The classifier is not learning "fake news signals." It is learning **source-specific collection artifacts**. This is a *positive finding*: it proves the two corpora were built with different pipelines that left distinct metadata signatures. The moderate Macro-F1 reflects the substantial lexical overlap (Jaccard = 0.4146) that exists *beneath* the artifact layer.
+The classifier is not learning "fake news signals." It is learning **source-specific collection artifacts**. This is a *positive finding*: it proves the two corpora were built with different pipelines that left distinct metadata signatures. The moderate Macro-F1 reflects the substantial lexical overlap (Jaccard = 0.4784) that exists *beneath* the artifact layer.
 
 **Proof in Code:** `#### Notebook 5, Code Cell 2` — the coefficient extraction and the `figure_fake_vs_fake_terms.png` visualization.
 
@@ -550,7 +550,7 @@ Every empirical claim in the paper traces to a specific notebook cell and output
 | Four analysis populations (A, B, C, D) | Table II | `#### Notebook 1, Cell 8` | `populations/pop_[A-D]_*.csv` |
 | Custom Bangla tokenizer (sklearn issue #30935) | §IV-A | `#### Notebook 2, Cell 1` | `analysis/tokenizer_validation_log.txt` |
 | Vocabulary statistics per population | Table III | `#### Notebook 2, Cell 2` | `analysis/vocab_stats.json` |
-| Jaccard similarity (Fake-Fake = 0.4146) | Table III | `#### Notebook 2, Cell 3` | `analysis/jaccard_similarity.json` |
+| Jaccard similarity (Fake-Fake = 0.4784) | Table III | `#### Notebook 2, Cell 3` | `analysis/jaccard_similarity.json` |
 | 14 stylometric features definition | §IV-B | `#### Notebook 3, Cell 1` | `analysis/stylometric_feature_extraction.py` |
 | Mann-Whitney U tests + rank-biserial $r$ | Table IV | `#### Notebook 3, Cell 3` | `analysis/stylometric_mann_whitney_results.json` |
 | Article length CDFs | Figure 2 | `#### Notebook 3, Cell 3` | `figures/figure2_length_cdf.png` |
