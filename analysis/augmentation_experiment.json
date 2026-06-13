@@ -1,0 +1,26 @@
+{
+  "Model_A_only_on_A_test": {
+    "macro_f1": 0.4498,
+    "fake_f1": 0.8997
+  },
+  "Model_A_only_on_D_test": {
+    "macro_f1": 0.4228,
+    "fake_f1": 0.8455
+  },
+  "Model_D_only_on_D_test": {
+    "macro_f1": 0.3704,
+    "fake_f1": 0.7407
+  },
+  "Model_D_only_on_A_test": {
+    "macro_f1": 0.3421,
+    "fake_f1": 0.6843
+  },
+  "Model_Combined_on_A_test": {
+    "macro_f1": 0.4768,
+    "fake_f1": 0.9537
+  },
+  "Model_Combined_on_D_test": {
+    "macro_f1": 0.4485,
+    "fake_f1": 0.897
+  }
+}

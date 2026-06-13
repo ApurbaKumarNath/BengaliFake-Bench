@@ -1,0 +1,62 @@
+{
+  "total_conflicts": 1101,
+  "all_conflicts_are": "v2=Real(1), HF=Fake(0)",
+  "conflict_category_dist_hf": {
+    "National": 372,
+    "Sports": 186,
+    "International": 169,
+    "Editorial": 132,
+    "Entertainment": 82,
+    "Miscellaneous": 34,
+    "Politics": 29,
+    "Technology": 29,
+    "Finance": 24,
+    "Lifestyle": 22,
+    "Crime": 12,
+    "Education": 10
+  },
+  "nonconflict_hf_fake_count": 3400,
+  "nonconflict_hf_fake_category_dist": {
+    "National": 925,
+    "Miscellaneous": 748,
+    "International": 383,
+    "Sports": 340,
+    "Politics": 243,
+    "Entertainment": 216,
+    "Lifestyle": 136,
+    "Editorial": 133,
+    "Education": 102,
+    "Crime": 70,
+    "Technology": 51,
+    "Finance": 42,
+    "religious": 6,
+    "Entertainment ": 2,
+    "International ": 2,
+    "science": 1
+  },
+  "content_len_conflict": {
+    "mean": 1421.6230699364214,
+    "median": 1140.0,
+    "std": 1065.9936988445972
+  },
+  "content_len_nonconflict_hf_fake": {
+    "mean": 1829.519117647059,
+    "median": 1440.0,
+    "std": 1463.2922158879821
+  },
+  "pct_of_hf_fake_that_is_conflicted": 24.46,
+  "pct_of_v2_real_that_is_conflicted": 2.27,
+  "sample_conflict_headlines": [
+    "ইস্কাটনে জোড়া খুন: রনির মামলায় রায় ৪ অক্টোবর",
+    "নওয়াজ শরিফকে মুক্তির নির্দেশ",
+    "গৃহবধূকে ধর্ষণের পর ভিডিও ছড়িয়ে সাবেক ইউপি সদস্য গ্রেফতার",
+    "মেসির হ্যাটট্রিকে দুর্দান্ত শুরু বার্সেলোনার",
+    "যুক্তরাষ্ট্রকে চীনের পাল্টা হুমকি",
+    "পল্লবীতে ধর্ষণের অভিযোগে ‘উবার চালকের প্রবেশাধিকার বাতিল’",
+    "চাঁদপুরে দাফনের ১২ বছর পর লাশ তুলল সিআইডি",
+    "সিরিয়ার ক্ষেপণাস্ত্রে রাশিয়ার বিমান ভূপাতিত!",
+    "১৪ দলীয় জোটের তিন শক্তি",
+    "ঢাবিতে কোটা আন্দোলনকারী ও ছাত্রলীগের পাল্টাপাল্টি মিছিল"
+  ],
+  "interpretation": "1,101 articles are labeled Real in BanFakeNews-2.0 but Fake in QPAIN. This is not a data error — it reflects genuine disagreement between the two annotation teams about what constitutes fake news. These articles are a key finding: the two corpora use different operationalizations of 'fake news'. 24.5% of all QPAIN fake articles are labeled Real in BanFakeNews-2.0."
+}

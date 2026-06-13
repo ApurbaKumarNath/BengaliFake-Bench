@@ -1,0 +1,25 @@
+{
+  "v1_raw_rows": 58478,
+  "v1_internal_duplicates": 6349,
+  "v1_unique_articles": 52129,
+  "v2_unique_articles": 58159,
+  "overlap_v1_and_v2": 51160,
+  "v1_only_not_in_v2": 969,
+  "v2_only_not_in_v1": 6999,
+  "pct_v1_covered_by_v2": 98.14,
+  "pct_v2_covered_by_v1": 87.97,
+  "v1_only_label_dist": {
+    "1.0": 944,
+    "0.0": 25
+  },
+  "conclusion": "v1 is 98.14% covered by v2. The 969 uncovered articles consist of 851 near-duplicates (same headline, minor content diff) and 118 articles genuinely absent from v2. v2 is a near-superset of v1 but not an exact superset. Exclusion of v1 is justified by: (1) CC BY-NC-SA license incompatibility, (2) 98.14% overlap makes independent contribution negligible, (3) extreme 97/3 class imbalance would skew merged dataset.",
+  "v1_only_investigation": {
+    "total_v1_only": 969,
+    "from_labeled_files": 944,
+    "from_unlabeled_files": 25,
+    "articles_with_content_lt50_chars": 0,
+    "headline_matched_to_v2": 851,
+    "near_duplicate_estimate": 851,
+    "genuinely_absent_from_v2": 118
+  }
+}

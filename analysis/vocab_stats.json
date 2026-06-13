@@ -1,0 +1,58 @@
+{
+  "A_v2_fake_uncontested": {
+    "n_articles": 9594,
+    "total_tokens_raw": 2687495,
+    "unique_vocab_raw": 208663,
+    "ttr_raw": 0.0776,
+    "total_tokens_clean": 2041289,
+    "unique_vocab_clean": 208161,
+    "ttr_clean": 0.102,
+    "mean_article_length_words": 280.12,
+    "median_article_length_words": 234.0,
+    "std_article_length_words": 205.58,
+    "min_article_length_words": 5,
+    "max_article_length_words": 3357
+  },
+  "B_v2_real_uncontested": {
+    "n_articles": 47464,
+    "total_tokens_raw": 13498026,
+    "unique_vocab_raw": 382226,
+    "ttr_raw": 0.0283,
+    "total_tokens_clean": 10372840,
+    "unique_vocab_clean": 381717,
+    "ttr_clean": 0.0368,
+    "mean_article_length_words": 284.38,
+    "median_article_length_words": 218.0,
+    "std_article_length_words": 235.19,
+    "min_article_length_words": 2,
+    "max_article_length_words": 4789
+  },
+  "C_conflict_realv2_fakeHF": {
+    "n_articles": 1101,
+    "total_tokens_raw": 249806,
+    "unique_vocab_raw": 37756,
+    "ttr_raw": 0.1511,
+    "total_tokens_clean": 192557,
+    "unique_vocab_clean": 37353,
+    "ttr_clean": 0.194,
+    "mean_article_length_words": 226.89,
+    "median_article_length_words": 181.0,
+    "std_article_length_words": 170.47,
+    "min_article_length_words": 12,
+    "max_article_length_words": 1794
+  },
+  "D_hf_fake_nonconflict": {
+    "n_articles": 3400,
+    "total_tokens_raw": 987960,
+    "unique_vocab_raw": 102585,
+    "ttr_raw": 0.1038,
+    "total_tokens_clean": 745029,
+    "unique_vocab_clean": 102128,
+    "ttr_clean": 0.1371,
+    "mean_article_length_words": 290.58,
+    "median_article_length_words": 229.0,
+    "std_article_length_words": 229.03,
+    "min_article_length_words": 8,
+    "max_article_length_words": 3357
+  }
+}
