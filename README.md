@@ -204,6 +204,13 @@ We computed the exact text-identical overlap between BanFakeNews-2.0 (v2) and th
 - **Artifact**: [`analysis/label_conflict_check.json`](analysis/label_conflict_check.json)
 - **Conclusion**: This is not a data quality error. It is a systematic annotation disagreement. The two corpora operationalize "fake news" differently.
 
+#### 2.4. Preliminary Fake-vs-Fake Classifier (Notebook 2)
+As a preliminary test of lexical distinguishability, Notebook 2 (Cell 4) trained a LinearSVC classifier to distinguish Pop A from Pop D using a split stratified by class label but not by population source, with `max_features=30000`. This classifier achieved Macro-F1 = **0.6572**. The top discriminating terms revealed that QPAIN fake articles contain **English category labels** (e.g., `National`, `International`, `Education`) embedded in the text, while BanFakeNews-2.0 fake articles contain only Bangla script. This finding indicates **metadata leakage** from QPAIN's collection pipeline.
+
+Notebook 5 (Cell 2) presents the **authoritative** fake-vs-fake classifier with two methodological refinements: (1) stratified splitting **within each population** to prevent cross-contamination, and (2) `max_features` reduced to 20,000 to control dimensionality given the smaller effective training set. This classifier achieves Macro-F1 = **0.6132**. The lower score reflects both the more conservative evaluation protocol and the reduced feature space. The top discriminating terms in NB5 reveal **Bangla fragment artifacts** (e.g., `মতিকণ্ঠ`, `র্থী`, `র্থীদের`) rather than English labels, suggesting that after proper stratification, the classifier learns subtler lexical distinctions.
+
+Together, these classifiers demonstrate that the two fake populations are lexically distinguishable but identify **different artifact types**: NB2 reveals English metadata leakage, while NB5 reveals Bangla scraping artifacts. Both findings support the thesis that the corpora were built with different collection pipelines.
+
 #### 3. Isolation of the 4 Core Populations
 To enable clean, leakage-free characterization, the notebook isolates four mutually exclusive populations and saves them as CSVs in the `populations/` directory:
 | Population | Description | Count | File |
@@ -390,9 +397,7 @@ The results of this experiment are saved in [`analysis/augmentation_experiment.j
    - *Gain:* **+15.6 points**. QPAIN's fake articles are topically concentrated (as proven in Notebook 4). Adding the diverse fake articles from BanFakeNews-2.0 provides crucial regularization, preventing the model from overfitting to QPAIN's narrow topical distribution.
 
 #### 4. Lexical Distinction vs. Complementary Learning
-This result resolves the apparent paradox between Notebook 2 and Notebook 5:
-- **Notebook 2 proved** that a LinearSVC can distinguish Pop A from Pop D (Macro-F1 = 0.6132), meaning they use different lexical signals (e.g., source-specific artifacts, different sensationalist vocabulary).
-- **Notebook 5 proves** that despite these differences, training on *both* yields a superior model. 
+*"This result connects the lexical distinction findings from Notebooks 2 and 5. Notebook 2's preliminary classifier (Macro-F1 = 0.6572) identified English metadata leakage as a distinguishing signal, while Notebook 5's refined classifier (Macro-F1 = 0.6132) identified Bangla fragment artifacts. Despite these different artifact patterns, training on both corpora provides evidence that the regimes are complementary: the combined model improves over the strongest single-source baseline on both test sets."*
 
 This confirms the core thesis: **The two corpora represent distinct misinformation regimes, but these regimes are complementary.** A model exposed to both learns a broader, more generalized decision boundary for "fakeness" that transcends the idiosyncratic annotation guidelines or collection artifacts of any single corpus.
 
