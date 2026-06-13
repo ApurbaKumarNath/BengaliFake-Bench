@@ -199,10 +199,14 @@ If these files exist and match the described contents, the environment is fully 
 
 ## 📖 Phase 1: Deep Dive into Notebooks 1 & 2 (Data Isolation & Lexical Analysis)
 
-This phase establishes the empirical foundation of the repository. It proves that the two corpora are not merely different samples of the same phenomenon, but structurally distinct datasets with fundamentally different operational definitions of "fake news."
+**Overarching Research Question:** *Do BanFakeNews-2.0 and QPAIN represent the same misinformation regime, or structurally distinct regimes with different operational definitions of "fake news"?*
+
+This phase establishes the empirical foundation of the repository. It proves that the two corpora are not merely different samples of the same phenomenon, but structurally distinct datasets with fundamentally different operational definitions of "fake news." Notebooks 1 and 2 provide the lexical and overlap evidence; Notebooks 3–5 provide stylometric, topical, and classifier evidence.
 
 ---
 ### 🔹 `#### Notebook 1`: Data Verification & Population Isolation
+
+**Research Question:** *What is the text-identical overlap between BanFakeNews-2.0 and QPAIN, and does it reveal systematic label conflicts that indicate different operational definitions of "fake news"?*
 
 This notebook rigorously verifies the source data and isolates four distinct analytical populations. Every claim is backed by a saved JSON artifact in the `analysis/` directory.
 
@@ -255,6 +259,8 @@ To enable clean, leakage-free characterization, the notebook isolates four mutua
 
 ### 🔹 `#### Notebook 2`: Lexical Characterization
 
+**Research Question:** *Do BanFakeNews-2.0 and QPAIN fake articles share a common vocabulary, or do they exhibit source-specific lexical signatures that reveal different collection pipelines?*
+
 This notebook analyzes the vocabulary and lexical structure of the isolated populations. It contains a critical methodological correction for Bangla NLP that reviewers must note.
 
 #### 1. The Scikit-Learn Tokenizer Bug Defense
@@ -299,13 +305,15 @@ To obtain a methodologically defensible measure of lexical distinguishability, N
 
 ## 📖 Phase 2: Deep Dive into Notebooks 3 & 4 (Stylometric & Topical Characterization)
 
-This phase moves beyond vocabulary. Even if two corpora share words (as proven by Jaccard in Notebook 2), they might use those words in fundamentally different structural or thematic ways. Notebook 3 proves structural divergence via stylometrics; Notebook 4 proves thematic divergence via topic modeling.
+**Overarching Research Question:** *Even if two corpora share vocabulary (as proven by Jaccard in Notebook 2), do they use those words in fundamentally different structural or thematic ways?*
+
+This phase moves beyond vocabulary. Notebook 3 proves structural divergence via stylometrics; Notebook 4 proves thematic divergence via topic modeling.
 
 ---
 
 ### 🔹 `#### Notebook 3`: Stylometric Characterization
 
-**The Research Question:** Are the fake articles in BanFakeNews-2.0 and QPAIN structurally identical, or do they exhibit different writing patterns?
+**Research Question:** *Are the fake articles in BanFakeNews-2.0 and QPAIN structurally identical, or do they exhibit different writing patterns?*
 
 #### 1. The 14 Hand-Crafted Stylometric Features
 We extract 14 scalar features from every article in all four populations. These are designed to capture the "fingerprints" of different annotation regimes:
@@ -348,7 +356,8 @@ A common mistake in NLP papers is to compare means using a t-test and report onl
 
 ### 🔹 `#### Notebook 4`: Topical Characterization
 
-**The Research Question:** Do the two fake news corpora cover the same thematic ground, or do they represent distinct misinformation regimes?
+**Research Question:** *Do the two fake news corpora cover the same thematic ground, or do they represent distinct misinformation regimes?*  
+*(Synthesized from notebook focus statement: "Topical Characterization with LDA topic modeling. This will tell us if the two fake populations cover different topics.")*
 
 #### 1. The LDA Pipeline Defense
 We use Latent Dirichlet Allocation (LDA) to discover the latent thematic structure of the fake articles in Pop A and Pop D.
@@ -388,7 +397,13 @@ Instead, we compare **thematic distributions**:
 
 ## 📖 Phase 3: Deep Dive into Notebook 5 (Classifier Analysis & The Clean Augmentation Experiment).
 
+**Overarching Research Question:** *If the two corpora are lexically and structurally distinct (as proven in Phases 1–2), are they contradictory for machine learning, or can multi-source training exploit their complementary signals?*
+
 ### 🔹 `#### Notebook 5`: Classifier Analysis & Clean Augmentation
+
+**Research Questions:**
+1. *Lexical Distinguishability:* Can a linear classifier distinguish BanFakeNews-2.0 fake articles from QPAIN fake articles based on vocabulary alone, and what source-specific artifacts (e.g., English metadata leakage, Bangla scraping fragments) drive this distinction? *(Notebook 5, Cell 2; preliminary version in Notebook 2, Cell 4)*
+2. *Complementary Learning:* Does adding the other corpus's fake articles to the training set improve in-domain fake news detection, suggesting the two regimes carry non-redundant information? *(Notebook 5, Cell 3)*
 
 This notebook replaces the flawed "naive cross-source" experiment (which suffered from an 84% train-test overlap) with a methodologically airtight **Clean Augmentation Experiment**. It proves that while the two fake news populations are lexically distinct, they are **complementary, not contradictory**, and combining them yields a more robust detector.
 
