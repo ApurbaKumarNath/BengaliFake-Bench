@@ -235,7 +235,7 @@ Standard NLP pipelines in Python fail catastrophically on Indic scripts.
 #### 2. Vocabulary Overlap (Jaccard Similarity)
 We computed the Jaccard similarity (Intersection / Union) of the cleaned, stopword-removed vocabularies.
 - **Fake vs. Fake (Pop A vs. Pop D)**: Jaccard = **0.4784**. This indicates a moderate, shared "misinformation lexicon" between the two corpora.
-- **Fake vs. Real (Pop A vs. Pop B)**: Jaccard = **0.1956**. 
+- **Fake vs. Real (Pop A vs. Pop B)**: Jaccard = **0.2624**. 
 - **Finding**: The two fake populations share *twice as much* vocabulary with each other as they do with their respective real news counterparts. This proves that despite different annotation guidelines, both corpora draw from a distinct lexical pool of fabricated content.
 - **Artifact**: [`analysis/jaccard_similarity.json`](analysis/jaccard_similarity.json)
 
@@ -245,7 +245,7 @@ To quantify the lexical distinction between Pop A (v2 Fake) and Pop D (QPAIN Fak
 - **Result**: Macro-F1 = **0.6132**. While not perfect, this score is significantly above random chance, proving the two fake populations are lexically distinguishable.
 - **Coefficient Analysis**: Extracting the top discriminating terms reveals *why* they are distinguishable. 
   - *Pop A (v2 Fake) top terms*: `জাতীয়` (national), `আন্তর্জাতিক` (international), `শিক্ষা` (education). These are Bangla news category labels embedded in the text.
-  - *Pop D (QPAIN Fake) top terms*: `মতিকণ্ঠ`, `র্থী` (fragment of "Educationকেন্দ্রিক"), `দৈনিক` (daily). These are scraping artifacts and outlet names.
+  - *Pop D (QPAIN Fake) top terms*: `মতিকণ্ঠ`, `তাবাদী`, `র্থী`, `র্থীদের`, `দৈনিক` (scraping artifacts and outlet names). These are scraping artifacts from QPAIN's collection pipeline.
 - **Conclusion**: The classifier does not learn "fake news signals"; it learns **source-specific collection artifacts**. This explains why cross-source generalization fails: the models are memorizing dataset-specific metadata leakage, not universal linguistic patterns of fabrication.
 - **Artifacts**: [`analysis/fake_vs_fake_classifier.json`](analysis/fake_vs_fake_classifier.json), [`figures/figure_fake_vs_fake_terms.png`](figures/figure_fake_vs_fake_terms.png)
 
@@ -452,7 +452,7 @@ This is not noise. It is a **systematic, directional annotation disagreement** t
 0.6132 is *substantially* above the 0.5 random baseline for a binary task on imbalanced data (Pop A = 9,594 vs Pop D = 3,400). More importantly, the *coefficient analysis* reveals what the classifier learned:
 
 - **Top v2 Fake terms:** `জাতীয়` (national), `আন্তর্জাতিক` (international), `শিক্ষা` (education), `রাজনীতি` (politics) — these are Bangla news category labels embedded in the articles.
-- **Top QPAIN Fake terms:** `মতিকণ্ঠ`, `র্থী`, `র্থীদের`, `দৈনিক` — these are scraping artifacts from QPAIN's collection pipeline (fragments of English category labels like "Education" glued to Bangla words).
+- **Top QPAIN Fake terms:** `মতিকণ্ঠ`, `তাবাদী`, `র্থী`, `র্থীদের`, `দৈনিক` — these are scraping artifacts from QPAIN's collection pipeline (fragments of English category labels like "Education" glued to Bangla words).
 
 The classifier is not learning "fake news signals." It is learning **source-specific collection artifacts**. This is a *positive finding*: it proves the two corpora were built with different pipelines that left distinct metadata signatures. The moderate Macro-F1 reflects the substantial lexical overlap (Jaccard = 0.4784) that exists *beneath* the artifact layer.
 
