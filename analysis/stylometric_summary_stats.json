@@ -1,0 +1,402 @@
+{
+  "A": {
+    "text_len": {
+      "mean": 1817.7382,
+      "std": 1351.4256,
+      "median": 1504.0,
+      "min": 32,
+      "max": 21752
+    },
+    "word_count": {
+      "mean": 280.7312,
+      "std": 206.1251,
+      "median": 235.0,
+      "min": 5,
+      "max": 3357
+    },
+    "headline_len": {
+      "mean": 57.5528,
+      "std": 29.3545,
+      "median": 50.0,
+      "min": 4,
+      "max": 229
+    },
+    "body_len": {
+      "mean": 1759.1853,
+      "std": 1345.9388,
+      "median": 1447.0,
+      "min": 7,
+      "max": 21718
+    },
+    "headline_word_count": {
+      "mean": 8.8225,
+      "std": 4.3243,
+      "median": 8.0,
+      "min": 1,
+      "max": 32
+    },
+    "sentence_count": {
+      "mean": 18.6575,
+      "std": 18.0205,
+      "median": 16.0,
+      "min": 0,
+      "max": 354
+    },
+    "avg_word_len": {
+      "mean": 6.4813,
+      "std": 0.4797,
+      "median": 6.4637,
+      "min": 4.1559,
+      "max": 14.8333
+    },
+    "exclamation_count": {
+      "mean": 0.6313,
+      "std": 2.0228,
+      "median": 0.0,
+      "min": 0,
+      "max": 76
+    },
+    "question_count": {
+      "mean": 0.9542,
+      "std": 2.4058,
+      "median": 0.0,
+      "min": 0,
+      "max": 55
+    },
+    "danda_count": {
+      "mean": 16.1347,
+      "std": 15.6577,
+      "median": 14.0,
+      "min": 0,
+      "max": 328
+    },
+    "digit_count": {
+      "mean": 11.1517,
+      "std": 22.7811,
+      "median": 4.0,
+      "min": 0,
+      "max": 722
+    },
+    "digit_ratio": {
+      "mean": 0.006,
+      "std": 0.0094,
+      "median": 0.003,
+      "min": 0.0,
+      "max": 0.2222
+    },
+    "unique_word_ratio": {
+      "mean": 0.7284,
+      "std": 0.0847,
+      "median": 0.7284,
+      "min": 0.2669,
+      "max": 1.0
+    },
+    "hl_body_ratio": {
+      "mean": 0.0508,
+      "std": 0.0984,
+      "median": 0.0352,
+      "min": 0.0015,
+      "max": 7.0
+    }
+  },
+  "B": {
+    "text_len": {
+      "mean": 1863.8699,
+      "std": 1506.8221,
+      "median": 1440.0,
+      "min": 10,
+      "max": 27177
+    },
+    "word_count": {
+      "mean": 284.3931,
+      "std": 235.1956,
+      "median": 218.0,
+      "min": 2,
+      "max": 4791
+    },
+    "headline_len": {
+      "mean": 43.1746,
+      "std": 12.7931,
+      "median": 43.0,
+      "min": 2,
+      "max": 109
+    },
+    "body_len": {
+      "mean": 1819.6953,
+      "std": 1507.0371,
+      "median": 1393.5,
+      "min": 3,
+      "max": 27155
+    },
+    "headline_word_count": {
+      "mean": 6.398,
+      "std": 1.9344,
+      "median": 6.0,
+      "min": 1,
+      "max": 16
+    },
+    "sentence_count": {
+      "mean": 22.2273,
+      "std": 21.3557,
+      "median": 16.0,
+      "min": 0,
+      "max": 682
+    },
+    "avg_word_len": {
+      "mean": 6.6167,
+      "std": 0.4002,
+      "median": 6.5916,
+      "min": 4.7817,
+      "max": 10.7543
+    },
+    "exclamation_count": {
+      "mean": 0.1859,
+      "std": 1.008,
+      "median": 0.0,
+      "min": 0,
+      "max": 64
+    },
+    "question_count": {
+      "mean": 0.3444,
+      "std": 1.6974,
+      "median": 0.0,
+      "min": 0,
+      "max": 118
+    },
+    "danda_count": {
+      "mean": 20.7191,
+      "std": 19.4756,
+      "median": 15.0,
+      "min": 0,
+      "max": 533
+    },
+    "digit_count": {
+      "mean": 17.8828,
+      "std": 27.0018,
+      "median": 11.0,
+      "min": 0,
+      "max": 2177
+    },
+    "digit_ratio": {
+      "mean": 0.0103,
+      "std": 0.011,
+      "median": 0.0073,
+      "min": 0.0,
+      "max": 0.2991
+    },
+    "unique_word_ratio": {
+      "mean": 0.7292,
+      "std": 0.0858,
+      "median": 0.7357,
+      "min": 0.2138,
+      "max": 1.0
+    },
+    "hl_body_ratio": {
+      "mean": 0.0366,
+      "std": 0.0455,
+      "median": 0.0304,
+      "min": 0.0003,
+      "max": 5.3333
+    }
+  },
+  "C": {
+    "text_len": {
+      "mean": 1463.9709,
+      "std": 1066.0689,
+      "median": 1181.0,
+      "min": 82,
+      "max": 11339
+    },
+    "word_count": {
+      "mean": 226.8965,
+      "std": 170.5521,
+      "median": 181.0,
+      "min": 12,
+      "max": 1794
+    },
+    "headline_len": {
+      "mean": 41.3479,
+      "std": 12.0074,
+      "median": 41.0,
+      "min": 4,
+      "max": 81
+    },
+    "body_len": {
+      "mean": 1421.6231,
+      "std": 1065.9937,
+      "median": 1140.0,
+      "min": 45,
+      "max": 11307
+    },
+    "headline_word_count": {
+      "mean": 6.1517,
+      "std": 1.7872,
+      "median": 6.0,
+      "min": 1,
+      "max": 13
+    },
+    "sentence_count": {
+      "mean": 18.3996,
+      "std": 16.3423,
+      "median": 14.0,
+      "min": 0,
+      "max": 196
+    },
+    "avg_word_len": {
+      "mean": 6.5223,
+      "std": 0.401,
+      "median": 6.5184,
+      "min": 5.0868,
+      "max": 8.2873
+    },
+    "exclamation_count": {
+      "mean": 0.2289,
+      "std": 1.3532,
+      "median": 0.0,
+      "min": 0,
+      "max": 37
+    },
+    "question_count": {
+      "mean": 0.3088,
+      "std": 1.6065,
+      "median": 0.0,
+      "min": 0,
+      "max": 35
+    },
+    "danda_count": {
+      "mean": 17.1544,
+      "std": 15.0045,
+      "median": 13.0,
+      "min": 0,
+      "max": 187
+    },
+    "digit_count": {
+      "mean": 14.3842,
+      "std": 26.502,
+      "median": 8.0,
+      "min": 0,
+      "max": 355
+    },
+    "digit_ratio": {
+      "mean": 0.0096,
+      "std": 0.0112,
+      "median": 0.0063,
+      "min": 0.0,
+      "max": 0.1163
+    },
+    "unique_word_ratio": {
+      "mean": 0.7443,
+      "std": 0.0802,
+      "median": 0.75,
+      "min": 0.4025,
+      "max": 1.0
+    },
+    "hl_body_ratio": {
+      "mean": 0.0413,
+      "std": 0.0343,
+      "median": 0.0345,
+      "min": 0.0012,
+      "max": 0.8
+    }
+  },
+  "D": {
+    "text_len": {
+      "mean": 1879.7426,
+      "std": 1463.0701,
+      "median": 1493.0,
+      "min": 50,
+      "max": 19781
+    },
+    "word_count": {
+      "mean": 290.5824,
+      "std": 229.0671,
+      "median": 229.0,
+      "min": 8,
+      "max": 3357
+    },
+    "headline_len": {
+      "mean": 49.2235,
+      "std": 17.8649,
+      "median": 46.0,
+      "min": 6,
+      "max": 157
+    },
+    "body_len": {
+      "mean": 1829.5191,
+      "std": 1463.2922,
+      "median": 1440.0,
+      "min": 0,
+      "max": 19735
+    },
+    "headline_word_count": {
+      "mean": 7.6091,
+      "std": 3.0514,
+      "median": 7.0,
+      "min": 1,
+      "max": 30
+    },
+    "sentence_count": {
+      "mean": 23.6468,
+      "std": 21.7048,
+      "median": 18.0,
+      "min": 0,
+      "max": 354
+    },
+    "avg_word_len": {
+      "mean": 6.521,
+      "std": 0.4512,
+      "median": 6.5065,
+      "min": 5.0625,
+      "max": 9.011
+    },
+    "exclamation_count": {
+      "mean": 0.8306,
+      "std": 2.221,
+      "median": 0.0,
+      "min": 0,
+      "max": 44
+    },
+    "question_count": {
+      "mean": 0.8356,
+      "std": 2.5749,
+      "median": 0.0,
+      "min": 0,
+      "max": 52
+    },
+    "danda_count": {
+      "mean": 21.0429,
+      "std": 19.3772,
+      "median": 16.0,
+      "min": 0,
+      "max": 328
+    },
+    "digit_count": {
+      "mean": 13.6441,
+      "std": 25.3335,
+      "median": 7.0,
+      "min": 0,
+      "max": 672
+    },
+    "digit_ratio": {
+      "mean": 0.0074,
+      "std": 0.0096,
+      "median": 0.0044,
+      "min": 0.0,
+      "max": 0.1133
+    },
+    "unique_word_ratio": {
+      "mean": 0.7278,
+      "std": 0.0899,
+      "median": 0.7372,
+      "min": 0.3081,
+      "max": 1.0
+    },
+    "hl_body_ratio": {
+      "mean": 0.0548,
+      "std": 0.8408,
+      "median": 0.033,
+      "min": 0.0014,
+      "max": 49.0
+    }
+  }
+}

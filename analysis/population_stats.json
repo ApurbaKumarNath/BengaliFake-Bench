@@ -1,0 +1,15 @@
+{
+  "pop_A_count": 9594,
+  "pop_B_count": 47464,
+  "pop_C_count": 1101,
+  "pop_D_count": 3400,
+  "total_v2": 58159,
+  "total_hf": 10410,
+  "total_conflicts": 1101,
+  "verification": {
+    "v2_total_accounted": true,
+    "v2_real_accounted": true,
+    "v2_fake_accounted": true,
+    "hf_fake_accounted": true
+  }
+}

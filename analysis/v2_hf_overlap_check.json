@@ -1,0 +1,25 @@
+{
+  "v2_unique": 58159,
+  "hf_unique": 10410,
+  "overlap_count": 8751,
+  "agreements": 7650,
+  "conflicts": 1101,
+  "conflict_direction": {
+    "v2_Real_HF_Fake": 1101,
+    "v2_Fake_HF_Real": 0
+  },
+  "conflict_category_dist_hf": {
+    "National": 372,
+    "Sports": 186,
+    "International": 169,
+    "Editorial": 132,
+    "Entertainment": 82,
+    "Miscellaneous": 34,
+    "Politics": 29,
+    "Technology": 29,
+    "Finance": 24,
+    "Lifestyle": 22,
+    "Crime": 12,
+    "Education": 10
+  }
+}

@@ -1,0 +1,19 @@
+Bangla Tokenizer Validation Log
+==================================================
+Tokenizer: bnlp BasicTokenizer + whitespace split
+Rationale: sklearn default breaks Indic scripts (GH #30935)
+Normalization: NFC, zero-width removal, URL/HTML removal
+
+Input: বাংলাদেশে ভুয়া খবর ছড়িয়ে পড়ছে দ্রুত
+Normalized: বাংলাদেশে ভুয়া খবর ছড়িয়ে পড়ছে দ্রুত
+Tokens (6): ['বাংলাদেশে', 'ভুয়া', 'খবর', 'ছড়িয়ে', 'পড়ছে', 'দ্রুত']
+
+Input: মেসির হ্যাটট্রিকে দুর্দান্ত শুরু বার্সেলোনার
+Normalized: মেসির হ্যাটট্রিকে দুর্দান্ত শুরু বার্সেলোনার
+Tokens (5): ['মেসির', 'হ্যাটট্রিকে', 'দুর্দান্ত', 'শুরু', 'বার্সেলোনার']
+
+Input: ইস্কাটনে জোড়া খুন: রনির মামলায় রায় ৪ অক্টোবর
+Normalized: ইস্কাটনে জোড়া খুন: রনির মামলায় রায় ৪ অক্টোবর
+Tokens (8): ['ইস্কাটনে', 'জোড়া', 'খুন:', 'রনির', 'মামলায়', 'রায়', '৪', 'অক্টোবর']
+
+All validations passed: True

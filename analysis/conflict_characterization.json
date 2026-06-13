@@ -1,0 +1,156 @@
+{
+  "population_sizes": {
+    "pop_A_v2_fake_uncontested": 7853,
+    "pop_B_v2_real_uncontested": 47464,
+    "pop_C_conflict_realv2_fakeHF": 1101,
+    "pop_D_qpain_only_fake": 1659
+  },
+  "stylometric_C_vs_A": {
+    "text_len": {
+      "C_mean": 1463.9709,
+      "A_mean": 1875.6376,
+      "p_value": 3.765090551922002e-39,
+      "significant_p05": true
+    },
+    "word_count": {
+      "C_mean": 226.8965,
+      "A_mean": 288.5558,
+      "p_value": 1.242321052199243e-40,
+      "significant_p05": true
+    },
+    "headline_len": {
+      "C_mean": 41.3479,
+      "A_mean": 59.0637,
+      "p_value": 1.250954595241359e-70,
+      "significant_p05": true
+    },
+    "body_len": {
+      "C_mean": 1421.6231,
+      "A_mean": 1815.5739,
+      "p_value": 3.6218575345684965e-36,
+      "significant_p05": true
+    },
+    "sentence_count": {
+      "C_mean": 18.3996,
+      "A_mean": 18.2217,
+      "p_value": 0.36191940171279746,
+      "significant_p05": false
+    },
+    "exclamation_count": {
+      "C_mean": 0.2289,
+      "A_mean": 0.5488,
+      "p_value": 6.9684864028018995e-15,
+      "significant_p05": true
+    },
+    "question_count": {
+      "C_mean": 0.3088,
+      "A_mean": 0.9665,
+      "p_value": 8.9307117044001e-56,
+      "significant_p05": true
+    },
+    "danda_count": {
+      "C_mean": 17.1544,
+      "A_mean": 15.7188,
+      "p_value": 0.0002965887148308819,
+      "significant_p05": true
+    },
+    "digit_count": {
+      "C_mean": 14.3842,
+      "A_mean": 11.2636,
+      "p_value": 6.53894850967669e-30,
+      "significant_p05": true
+    },
+    "digit_ratio": {
+      "C_mean": 0.0096,
+      "A_mean": 0.0058,
+      "p_value": 3.509014886921282e-67,
+      "significant_p05": true
+    },
+    "unique_word_ratio": {
+      "C_mean": 0.7443,
+      "A_mean": 0.7263,
+      "p_value": 9.407443281537027e-17,
+      "significant_p05": true
+    },
+    "hl_body_ratio": {
+      "C_mean": 0.0413,
+      "A_mean": 0.0521,
+      "p_value": 0.5481024269253537,
+      "significant_p05": false
+    }
+  },
+  "stylometric_C_vs_D": {
+    "text_len": {
+      "C_mean": 1463.9709,
+      "D_mean": 2218.8583,
+      "p_value": 2.0227493647490524e-56,
+      "significant_p05": true
+    },
+    "word_count": {
+      "C_mean": 226.8965,
+      "D_mean": 337.959,
+      "p_value": 1.960989396001205e-49,
+      "significant_p05": true
+    },
+    "headline_len": {
+      "C_mean": 41.3479,
+      "D_mean": 47.6854,
+      "p_value": 2.0562188034430888e-23,
+      "significant_p05": true
+    },
+    "body_len": {
+      "C_mean": 1421.6231,
+      "D_mean": 2170.173,
+      "p_value": 3.1595851555260716e-55,
+      "significant_p05": true
+    },
+    "sentence_count": {
+      "C_mean": 18.3996,
+      "D_mean": 26.8198,
+      "p_value": 7.271038920130747e-36,
+      "significant_p05": true
+    },
+    "exclamation_count": {
+      "C_mean": 0.2289,
+      "D_mean": 0.6492,
+      "p_value": 2.642750272731066e-11,
+      "significant_p05": true
+    },
+    "question_count": {
+      "C_mean": 0.3088,
+      "D_mean": 0.7691,
+      "p_value": 9.152260214871667e-16,
+      "significant_p05": true
+    },
+    "danda_count": {
+      "C_mean": 17.1544,
+      "D_mean": 24.2254,
+      "p_value": 5.885849148371412e-30,
+      "significant_p05": true
+    },
+    "digit_count": {
+      "C_mean": 14.3842,
+      "D_mean": 16.7896,
+      "p_value": 0.12264301517725303,
+      "significant_p05": false
+    },
+    "digit_ratio": {
+      "C_mean": 0.0096,
+      "D_mean": 0.0078,
+      "p_value": 8.751584065738623e-10,
+      "significant_p05": true
+    },
+    "unique_word_ratio": {
+      "C_mean": 0.7443,
+      "D_mean": 0.7171,
+      "p_value": 1.42276663321743e-14,
+      "significant_p05": true
+    },
+    "hl_body_ratio": {
+      "C_mean": 0.0413,
+      "D_mean": 0.065,
+      "p_value": 3.1931518745531314e-19,
+      "significant_p05": true
+    }
+  }
+}
