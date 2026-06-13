@@ -564,25 +564,3 @@ Every empirical claim in the paper traces to a specific notebook cell and output
 | Augmentation heatmap | Figure 6 | `#### Notebook 5, Cell 3` | `figures/figure_augmentation_experiment.png` |
 
 ---
-
-## ✅ Final Verification Checklist
-
-Before submission, the repository maintainer must verify:
-
-- [ ] All 5 notebooks run top-to-bottom on a fresh Colab Free Tier runtime
-- [ ] All 4 population CSVs in `populations/` match the counts in Table II
-- [ ] `analysis/label_conflict_check.json` confirms exactly 1,101 conflicts, 100% unidirectional
-- [ ] All 6 figures in `figures/` are 300 DPI PNGs
-- [ ] Every JSON file in `analysis/` contains native Python types (no numpy float32 serialization errors)
-- [ ] The `bangla_tokenize` function correctly splits `Educationকেন্দ্রিক` → `['Education', 'কেন্দ্রিক']`
-- [ ] The augmentation experiment uses stratified splits *within* each population (no data leakage)
-- [ ] All LDA topic models were selected by $C_v$ coherence, not arbitrary $k$
-- [ ] All Mann-Whitney U tests report both $p$-value and rank-biserial $r$
-- [ ] The word "agglutinative" does not appear in the paper without the qualifier "agglutinative-like sub-word patterns"
-- [ ] LinearSVC loss is correctly described as `squared_hinge` (sklearn default), not plain `hinge`
-- [ ] The citation for the 2021 Cumilla attacks points to a journalistic source (HRW/Al Jazeera), not a dataset paper
-- [ ] The citation for "Bangla is the 7th most spoken language" points to Ethnologue, not a dataset paper
-
----
-
-*This documentation was written to withstand the most skeptical peer review. Every claim is reproducible. Every number is backed by a saved artifact. Every methodological choice is defended against its strongest counterargument.*
