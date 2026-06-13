@@ -38,15 +38,33 @@ BengaliFake-Bench/
 │   ├── pop_C_conflict_realv2_fakeHF.csv # Pop C: 1,101 text-identical conflicts
 │   └── pop_D_hf_fake_nonconflict.csv    # Pop D: QPAIN Fake, non-overlapping (n=3,400)
 │
-├── analysis/                                 # JSON/CSV outputs of all statistical tests and metrics
-│   ├── v1_overlap_check.json                 # Empirical proof of BanFakeNews v1 subsumption by v2.0
-│   ├── label_conflict_check.json             # Deep dive into the 1,101 annotation conflicts
-│   ├── vocab_stats.json                      # Vocabulary size, TTR, and length statistics
-│   ├── jaccard_similarity.json               # Unigram/bigram Jaccard overlap matrices
+├── analysis/                           # JSON/CSV outputs of all statistical tests and metrics
+│   ├── v1_overlap_check.json           # Empirical proof of BanFakeNews v1 subsumption by v2.0
+│   ├── v2_hf_overlap_check.json        # 8,751 overlap count and agreement/conflict breakdown
+│   ├── label_conflict_check.json       # Basic conflict counts and direction (1,101 conflicts)
+│   ├── conflict_characterization.json  # Deep dive: content length, samples, category dist
+│   ├── population_stats.json           # Mathematical verification: Pop A+B+C = v2 total
+│   ├── vocab_stats.json                # Vocabulary size, TTR, and length statistics
+│   ├── jaccard_similarity.json         # Unigram/bigram Jaccard overlap matrices
+│   ├── tokenizer_validation_log.txt    # Proof that custom Bangla tokenizer works correctly
+│   ├── fake_vs_fake_classifier.json    # Top discriminating coefficients and Macro-F1 (NB5)
+│   ├── stylometric_feature_extraction.py # The exact Python function for the 14 features
+│   ├── stylometric_pop_A.npy           # NumPy array of 14 features for Pop A
+│   ├── stylometric_pop_B.npy           # NumPy array of 14 features for Pop B
+│   ├── stylometric_pop_C.npy           # NumPy array of 14 features for Pop C
+│   ├── stylometric_pop_D.npy           # NumPy array of 14 features for Pop D
+│   ├── stylometric_summary_stats.json  # Mean/std/median/min/max for all 14 features
 │   ├── stylometric_mann_whitney_results.json # P-values and rank-biserial effect sizes
-│   ├── lda_topics.json                       # Topic-word distributions and coherence scores
-│   ├── fake_vs_fake_classifier.json          # Top discriminating coefficients and Macro-F1
-│   └── augmentation_experiment.json          # Clean cross-corpus training recovery metrics
+│   ├── lda_coherence_results.json      # Cv scores for k ∈ [5, 8, 10, 12, 15, 20]
+│   ├── lda_dict_A.dict                 # Gensim dictionary for Pop A LDA model
+│   ├── lda_dict_D.dict                 # Gensim dictionary for Pop D LDA model
+│   ├── lda_corpus_A.mm                 # Gensim BoW corpus for Pop A
+│   ├── lda_corpus_D.mm                 # Gensim BoW corpus for Pop D
+│   ├── lda_preprocessed_corpora.json   # Preprocessed token lists for LDA reproduction
+│   ├── lda_topics.json                 # Topic-word distributions and coherence scores
+│   ├── lda_topic_distributions.json  # Topic prevalence percentages per corpus
+│   ├── nb5_preprocessing_validation.json # Proves artifact splitting works on test cases
+│   └── augmentation_experiment.json    # Clean cross-corpus training recovery metrics
 │
 ├── figures/                               # 300 DPI publication-ready figures
 │   ├── figure2_length_cdf.png             # Article length cumulative distribution functions
