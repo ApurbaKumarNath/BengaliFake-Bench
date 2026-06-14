@@ -250,6 +250,10 @@ This means the conflict articles have significantly shorter, punchier, and more 
 
 **Artifact**: [`analysis/stylometric_mann_whitney_results.json`](analysis/stylometric_mann_whitney_results.json) (See `A_vs_C` comparison for exact $p$-values and rank-biserial $r$ effect sizes).
 
+**The Asymmetry of Disagreement**: The label conflict is not symmetric, which reveals which corpus uses the broader operationalization. Of QPAIN's total fake set (4,501 articles), 1,101 (24.5%) are labeled Real in BanFakeNews-2.0. In stark contrast, of BanFakeNews-2.0's total real set (48,565 articles), only 1,101 (2.3%) are labeled Fake in QPAIN. This **more than 10:1** asymmetry proves that the disagreement is not random annotation noise but a systematic directional skew: QPAIN's annotation guidelines cast a much wider net over mainstream news content, sweeping up roughly one-quarter of its entire fake set as articles that BanFakeNews-2.0 considers uncontested real news. BanFakeNews-2.0, by contrast, assigns the Real label to a far smaller fraction of its corpus (2.3%) that QPAIN would call Fake — indicating its narrower operationalization rarely overlaps with QPAIN's broader net. This asymmetry is the quantitative signature of two fundamentally different operational definitions of "fake news."
+
+**Artifact**: [`analysis/label_conflict_check.json`](analysis/label_conflict_check.json) (Contains the raw overlap counts from which these percentages are derived).
+
 #### 3. Isolation of the 4 Core Populations
 To enable clean, leakage-free characterization, the notebook isolates four mutually exclusive populations and saves them as CSVs in the `populations/` directory:
 | Population | Description | Count | File |
