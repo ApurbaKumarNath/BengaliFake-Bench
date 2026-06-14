@@ -201,7 +201,7 @@ If these files exist and match the described contents, the environment is fully 
 
 **Overarching Research Question:** *Do BanFakeNews-2.0 and QPAIN represent the same misinformation regime, or structurally distinct regimes with different operational definitions of "fake news"?*
 
-This phase establishes the empirical foundation of the repository. It proves that the two corpora are not merely different samples of the same phenomenon, but structurally distinct datasets with fundamentally different operational definitions of "fake news." Notebooks 1 and 2 provide the lexical and overlap evidence; Notebooks 3–5 provide stylometric, topical, and classifier evidence.
+This phase establishes the empirical foundation of the repository. It proves that BanFakeNews-2.0 and QPAIN constitute two distinct misinformation regimes — structurally different datasets that operationalize "fake news" through different annotation criteria and collection pipelines. Notebooks 1 and 2 provide the lexical and overlap evidence; Notebooks 3–5 provide stylometric, topical, and classifier evidence.
 
 ---
 ### 🔹 `#### Notebook 1`: Data Verification & Population Isolation
@@ -242,7 +242,7 @@ We computed the exact text-identical overlap between BanFakeNews-2.0 (v2) and th
 - **Conflicts**: **1,101 articles have identical text but opposite labels.**
 - **Directionality**: 100% of these conflicts are labeled `Real (1)` in BanFakeNews-2.0 and `Fake (0)` in QPAIN. These are predominantly mainstream news headlines (e.g., court verdicts, sports results, political marches).
 - **Artifact**: [`analysis/label_conflict_check.json`](analysis/label_conflict_check.json)
-- **Conclusion**: This is not a data quality error. It is a systematic annotation disagreement. The two corpora operationalize "fake news" differently.
+- **Conclusion**: This is not a data quality error. It is a systematic annotation disagreement reflecting **different operational definitions** of "fake news": BanFakeNews-2.0 restricts the label to clear fabrications and hoaxes, while QPAIN applies it more broadly to mainstream news articles judged as misleading. This definitional divergence is the **primary explanatory mechanism** for the two misinformation regimes identified throughout this repository — though we note that different collection pipelines may contribute independently to both the annotation differences and the structural differences.
 
 #### 3. Isolation of the 4 Core Populations
 To enable clean, leakage-free characterization, the notebook isolates four mutually exclusive populations and saves them as CSVs in the `populations/` directory:
@@ -278,7 +278,7 @@ Standard NLP pipelines in Python fail catastrophically on Indic scripts.
 We computed the Jaccard similarity (Intersection / Union) of the cleaned, stopword-removed vocabularies.
 - **Fake vs. Fake (Pop A vs. Pop D)**: Jaccard = **0.4784**. This indicates a moderate, shared "misinformation lexicon" between the two corpora.
 - **Fake vs. Real (Pop A vs. Pop B)**: Jaccard = **0.2624**. 
-- **Finding**: The two fake populations share *twice as much* vocabulary with each other as they do with their respective real news counterparts. This proves that despite different annotation guidelines, both corpora draw from a distinct lexical pool of fabricated content.
+- **Finding**: The two fake populations share *twice as much* vocabulary with each other as they do with their respective real news counterparts. This proves that despite different operational definitions, both corpora draw from a shared lexical pool of fabricated content — a common misinformation vocabulary that is itself distinct from real news — upon which each regime builds its distinct topical and structural signatures.
 - **Artifact**: [`analysis/jaccard_similarity.json`](analysis/jaccard_similarity.json)
 
 #### 2.4. Preliminary Fake-vs-Fake Classifier (Notebook 2)
@@ -310,7 +310,7 @@ To obtain a methodologically defensible measure of lexical distinguishability, N
 
 **Overarching Research Question:** *Even if two corpora share vocabulary (as proven by Jaccard in Notebook 2), do they use those words in fundamentally different structural or thematic ways?*
 
-This phase moves beyond vocabulary. Notebook 3 proves structural divergence via stylometrics; Notebook 4 proves thematic divergence via topic modeling.
+This phase moves beyond vocabulary. Notebook 3 proves structural divergence via stylometrics; Notebook 4 proves thematic divergence via topic modeling. Together, they provide independent evidence that the two misinformation regimes differ not only in annotation decisions but in the fundamental structure and thematic focus of their content.
 
 ---
 
@@ -452,7 +452,7 @@ The results of this experiment are saved in [`analysis/augmentation_experiment.j
 #### 4. Lexical Distinction vs. Complementary Learning
 *"This result connects the lexical distinction findings from Notebooks 2 and 5. Notebook 2's preliminary classifier (Macro-F1 = 0.6572) identified English metadata leakage as a distinguishing signal, while Notebook 5's refined classifier (Macro-F1 = 0.6132) identified Bangla fragment artifacts. Despite these different artifact patterns, training on both corpora provides evidence that the regimes are complementary: the combined model improves over the strongest single-source baseline on both test sets."*
 
-This confirms the core thesis: **The two corpora represent distinct misinformation regimes, but these regimes are complementary.** A model exposed to both learns a broader, more generalized decision boundary for "fakeness" that transcends the idiosyncratic annotation guidelines or collection artifacts of any single corpus.
+This confirms the central finding: the two misinformation regimes are **complementary, not contradictory**. Despite their different operational definitions and artifact profiles, combining them in training produces a more robust detector. A model exposed to both regimes learns a broader decision boundary for "fakeness" that transcends the idiosyncratic annotation guidelines and collection artifacts of any single corpus.
 
 #### 5. Generated Artifacts
 - **`analysis/fake_vs_fake_classifier.json`**: Top discriminating coefficients and performance metrics for the Pop A vs. Pop D classifier.
@@ -552,9 +552,9 @@ We do *not* claim Bangla is typologically agglutinative. We claim it has *agglut
 **The Attack:** A reviewer will argue that the complementary nature of the two fake populations (shown by the augmentation recovery) undermines the claim that they are distinct regimes.
 
 **The Rebuttal:**
-The two findings are *complementary*, not contradictory:
-- **Distinct** = they have different lexical signatures, topical distributions, and stylometric profiles (proven by Notebooks 2, 3, 4).
-- **Complementary** = when combined in training, they provide a broader, more robust decision boundary for "fakeness" (proven by Notebook 5's augmentation experiment).
+The two findings are **complementary, not contradictory**:
+- **Two Misinformation Regimes** = the corpora have different lexical signatures, topical distributions, and stylometric profiles because they operationalize "fake news" differently (proven by Notebooks 2, 3, 4).
+- **Complementary for ML** = when combined in training, these distinct regimes provide non-redundant signals that produce a broader, more robust decision boundary (proven by Notebook 5's augmentation experiment).
 
 This is exactly analogous to how English and Spanish are distinct languages (different vocabularies, grammars) but complementary for training a multilingual model. The distinctness is what makes the combination valuable — if they were identical, adding one to training would provide zero marginal benefit.
 
