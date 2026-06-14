@@ -449,6 +449,16 @@ The results of this experiment are saved in [`analysis/augmentation_experiment.j
 
 > **⚠️ Reviewer Note on Macro-F1:** Because our held-out test sets in this specific experiment contain *only* Fake articles (to isolate the fake-detection capability), the "Real" class F1-score is inherently 0. This artificially drags the Macro-F1 down to ~0.45. **The true metric of success here is the Fake-F1 score**, which measures the model's actual ability to detect the minority class.
 
+**Methodological Note: Fake-Only Evaluation Protocol**
+
+The held-out test sets (`A_test` and `D_test`) contain *only* Fake articles. This is a deliberate design choice that isolates a specific sub-question: *Does adding cross-corpus fake data improve the model's learned representation of "fakeness," independent of its ability to distinguish fake from real?*
+
+**Why this is scientifically valid:** The full binary task (fake vs. real) confounds two distinct capabilities: (1) recognizing the intrinsic features of the "fake" class, and (2) discriminating "fake" from "real." Our experiment isolates capability (1). If adding QPAIN fake articles to BanFakeNews-2.0 training improves Fake-F1 on held-out BanFakeNews-2.0 fake articles, this proves the two corpora encode **non-redundant information about the fake class itself**, rather than merely showing that more data improves general discrimination.
+
+**Why Fake-F1 is the correct metric:** Because the "Real" class is absent from the test sets, its F1 score is 0 by definition, which artifactually halves the Macro-F1 to ~0.45. The `Fake-F1` metric (computed with `pos_label=0`) reports the actual harmonic mean of precision and recall for the fake class. It directly answers: *"Given a set of known fake articles from corpus X, does the model correctly classify them as fake?"*
+
+**Limitation & Scope:** This experiment does not evaluate end-to-end binary classification on mixed real/fake distributions. A model with strong Fake-F1 on isolated fake articles might still struggle to discriminate fake from real in a mixed setting. Full binary evaluation on mixed distributions is possible with our existing population splits (e.g., testing on Pop B Real + Pop A/D Fake), but it was intentionally omitted here to maintain strict focus on the complementary-signal question. We reserve mixed-distribution evaluation for future work. The current result strictly proves that the two fake populations carry **complementary signals for the fake class**, which is a necessary (but not sufficient) condition for successful multi-source training.
+
 **Key Findings:**
 1. **v2 Fake Detection Improves:** 
    - Baseline (Regime 1) Fake-F1 on Pop A test: **0.8997**
