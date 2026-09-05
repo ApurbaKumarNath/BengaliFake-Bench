@@ -17,6 +17,11 @@ Through systematic, code-verified analysis, this repository establishes the foll
 
 This repository contains the exact code, isolated population splits, statistical test outputs, and 300-DPI figures required to independently verify every claim.
 
+## 🎥 Video Summary
+
+[![Watch the video summary](https://img.youtube.com/vi/ve_F88QRTAY/hqdefault.jpg)](https://youtu.be/ve_F88QRTAY)
+
+*Click the thumbnail to watch a walkthrough of the empirical findings on YouTube.*
 ---
 
 ## 🗂️ Repository Topology
